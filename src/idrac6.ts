@@ -1,3 +1,7 @@
+/**
+ * @module iDrac6
+ */
+
 import { IDrac6Options } from "./interfaces/iDrac6Options";
 import get from "lodash.get";
 import { URL, URLSearchParams } from "url";
@@ -17,17 +21,28 @@ import debug from "debug";
 import parser = require("fast-xml-parser");
 import { iDracTemperature } from "./interfaces/idrac";
 
-const CookieRegex = new RegExp(/_appwebSessionId_=(.*?);/gm);
-
-class iDrac6 {
+/**
+ * Main iDrac6 Class
+ */
+export class iDrac6 {
+    /** @hidden */
     private options?: IDrac6Options;
+    /** @hidden */
     private host?: string;
+    /** @hidden */
     private port?: number;
+    /** @hidden */
     private ssl?: boolean;
+    /** @hidden */
     private localSession?: IDrac6Session;
+    /** @hidden */
     private sessionDebug = debug("iDrac6 Session");
+    /** @hidden */
     private idracDebug = debug("iDrac6");
+    /** @hidden */
     private idracAction = debug("iDrac6 Actions");
+    /** @hidden */
+    private CookieRegex = new RegExp(/_appwebSessionId_=(.*?);/gm);
 
     constructor(options?: IDrac6Options) {
         this.options = options;
@@ -44,6 +59,11 @@ class iDrac6 {
         return pwState;
     }
 
+    /**
+     *
+     * @hidden
+     * @param data
+     */
     private _getPowerState(data: any) {
         return get(data, "root.pwState", PowerState.INVALID) as PowerState;
     }
@@ -72,6 +92,11 @@ class iDrac6 {
         return tempData;
     }
 
+    /**
+     *
+     * @hidden
+     * @param data
+     */
     private _getTemperature(data: any): iDracTemperature {
         const sensorData = get(
             data,
@@ -107,6 +132,11 @@ class iDrac6 {
         this.ssl = url.protocol === "https:";
     }
 
+    /**
+     *
+     * @hidden
+     * @param session
+     */
     private async saveSession(session?: IDrac6Session) {
         if (this.options) {
             if (this.options.sessionOptions) {
@@ -125,6 +155,10 @@ class iDrac6 {
         this.localSession = session;
     }
 
+    /**
+     *
+     * @hidden
+     */
     private async getSession(): Promise<IDrac6Session | false> {
         this.validateOptions();
         if (this.options) {
@@ -148,6 +182,9 @@ class iDrac6 {
         return false;
     }
 
+    /**
+     * You don't need to invoke this function by yourself. It gets invoked automatically.
+     */
     public async login() {
         this.validateOptions();
         if (!this.options) return;
@@ -168,7 +205,7 @@ class iDrac6 {
             // Success
             const setCookieString = response.headers.get("Set-Cookie");
             if (setCookieString) {
-                const regexArray = CookieRegex.exec(setCookieString);
+                const regexArray = this.CookieRegex.exec(setCookieString);
                 if (regexArray && regexArray.length >= 2) {
                     const sessionString: string = regexArray[1];
                     const session: IDrac6Session = {
@@ -190,6 +227,11 @@ class iDrac6 {
         throw new iDrac6LoginError("Invalid login data");
     }
 
+    /**
+     *
+     * @hidden
+     * @param actions
+     */
     private async getData(actions: IDrac6DataTypes[]) {
         const searchParams = new URLSearchParams();
         searchParams.set("get", actions.join(","));
@@ -202,6 +244,13 @@ class iDrac6 {
         return parsed;
     }
 
+    /**
+     *
+     * @hidden
+     * @readonly
+     * @private
+     * @memberof iDrac6
+     */
     private get baseKy() {
         this.validateOptions();
         const agent = new Agent({
@@ -215,6 +264,13 @@ class iDrac6 {
         });
     }
 
+    /**
+     *
+     * @hidden
+     * @readonly
+     * @private
+     * @memberof iDrac6
+     */
     private get ky() {
         return this.baseKy.extend({
             hooks: {
@@ -257,10 +313,16 @@ class iDrac6 {
         });
     }
 
+    /**
+     *
+     * @hidden
+     * @readonly
+     * @private
+     * @type {(string | void)}
+     * @memberof iDrac6
+     */
     private get urlBase(): string | void {
         if (!this.host || !this.port) return;
         return `${this.ssl ? "https" : "http"}://${this.host}:${this.port}`;
     }
 }
-
-export { iDrac6 };

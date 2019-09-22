@@ -1,3 +1,7 @@
+/**
+ * @module iDracInterfaces
+ */
+
 export interface iDracTemperature {
     unit: string;
     temperature: number;

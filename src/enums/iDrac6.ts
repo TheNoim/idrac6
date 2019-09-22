@@ -1,3 +1,7 @@
+/**
+ * @module Enums
+ */
+
 export enum PowerState {
     OFF,
     ON,

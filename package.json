@@ -11,6 +11,8 @@
         "prettier": "^1.18.2",
         "prettierrc": "^0.0.0-5",
         "ts-node": "^8.4.1",
+        "typedoc": "^0.15.0",
+        "typedoc-plugin-external-module-name": "^2.1.0",
         "typescript": "^3.6.3"
     },
     "dependencies": {
@@ -20,5 +22,9 @@
         "ky": "^0.14.0",
         "ky-universal": "^0.3.0",
         "lodash.get": "^4.4.2"
+    },
+    "scripts": {
+        "build": "tsc",
+        "docs": "typedoc --name iDrac6 --out docs/ src/idrac6.ts"
     }
 }

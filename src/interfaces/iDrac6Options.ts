@@ -1,3 +1,7 @@
+/**
+ * @module Options
+ */
+
 export interface IDrac6Options {
     username: string;
     password: string;
