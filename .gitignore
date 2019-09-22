@@ -1,0 +1,9 @@
+dist/
+.idea/
+node_modules/
+testConfig.json
+.Ds_Store
+.DS_Store
+.DS_store
+.Ds_Store
+session.json
