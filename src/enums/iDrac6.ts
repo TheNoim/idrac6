@@ -2,12 +2,18 @@
  * @module Enums
  */
 
+/**
+ * @internal
+ */
 export enum PowerState {
     OFF,
     ON,
     INVALID,
 }
 
+/**
+ * @internal
+ */
 export enum PowerActions {
     OFF,
     ON,
@@ -17,6 +23,9 @@ export enum PowerActions {
     SHUTDOWN,
 }
 
+/**
+ * @internal
+ */
 export enum IDrac6DataTypes {
     PowerState = "pwState",
     Temperature = "temperatures",

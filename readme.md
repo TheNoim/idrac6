@@ -2,6 +2,8 @@
 
 A basic library to interact with an idrac6 remote managment system written in TypeScript for JavaScript and TypeScript usage.
 
+## JavaScript Example:
+
 ```javascript
 const { iDrac6 } = require("idrac6");
 
@@ -16,7 +18,48 @@ const idrac = new iDrac6({
 });
 
 (async () => {
-    await idrac.getPowerState();
-    await idrac.getTemperature();
+    const powerState = await idrac.getPowerState();
+    if (powerState === iDrac6.POWER_STATES.ON) {
+        // Server is currently on
+        await idrac.sendPowerAction(iDrac6.POWER_ACTIONS.SHUTDOWN); // Shutdown the server
+    } else if (powerState === iDrac6.POWER_STATES.OFF) {
+        // Server is currently offline
+        await idrac.sendPowerAction(iDrac6.POWER_ACTIONS.ON); // Turn the server on
+    } else if (powerState === iDrac6.POWER_STATES.INVALID) {
+        // Server returned invalid power state
+        await idrac.sendPowerAction(iDrac6.POWER_ACTIONS.OFF); // Force turn off the server. Is like pressing the button for 5 seconds.
+    }
+    const temperature = await idrac.getTemperature();
+})();
+```
+
+## TypeScript Example
+
+```typescript
+import { iDrac6, PowerActions, PowerState, iDracTemperature } from 'idrac6';
+
+const idrac = new iDrac6({
+    username: "",
+    pasword: "",
+    address: "https://ip",
+    sessionOptions: {
+        saveSession: true, // This module can save your session and reuse it automatically
+        path: "./session.json",
+    },
+});
+
+(async () => {
+    const powerState: PowerState = await idrac.getPowerState();
+    if (powerState === PowerState.ON) {
+        // Server is currently on
+        await idrac.sendPowerAction(PowerActions.SHUTDOWN); // Shutdown the server
+    } else if (powerState === PowerState.OFF) {
+        // Server is currently offline
+        await idrac.sendPowerAction(PowerActions.ON); // Turn the server on
+    } else if (powerState === PowerState.INVALID) {
+        // Server returned invalid power state
+        await idrac.sendPowerAction(PowerActions.OFF); // Force turn off the server. Is like pressing the button for 5 seconds.
+    }
+    const temperature: iDracTemperature = await idrac.getTemperature();
 })();
 ```

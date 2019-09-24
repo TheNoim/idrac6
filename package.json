@@ -13,6 +13,7 @@
         "ts-node": "^8.4.1",
         "typedoc": "^0.15.0",
         "typedoc-plugin-external-module-name": "^2.1.0",
+        "typedoc-plugin-internal-external": "^2.0.2",
         "typescript": "^3.6.3"
     },
     "dependencies": {
@@ -25,6 +26,6 @@
     },
     "scripts": {
         "build": "tsc",
-        "docs": "typedoc --name iDrac6 --out docs/ src/idrac6.ts"
+        "docs": "typedoc --excludeProtected --target ES6 --excludePrivate --mode file --name iDrac6 --out docs/ src/idrac6.ts && touch docs/.nojekyll"
     }
 }

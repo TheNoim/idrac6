@@ -2,6 +2,9 @@
  * @module Options
  */
 
+/**
+ * @internal
+ */
 export interface IDrac6Options {
     username: string;
     password: string;
@@ -11,6 +14,9 @@ export interface IDrac6Options {
     timeout?: number;
 }
 
+/**
+ * @internal
+ */
 export interface IDrac6SessionStoreOptions {
     saveSession: boolean;
     path?: string;

@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export class iDrac6ConfigError extends Error {
     public iDrac6ConfigError: boolean = true;
     public iDrac6InvalidConfigError: boolean = true;
@@ -11,6 +14,9 @@ export class iDrac6ConfigError extends Error {
     }
 }
 
+/**
+ * @internal
+ */
 export class iDrac6MissingConfigError extends Error {
     public iDrac6ConfigError: boolean = true;
     public iDrac6MissingConfigError: boolean = true;

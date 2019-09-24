@@ -18,40 +18,92 @@ import { Agent } from "https";
 import { homedir } from "os";
 import { IDrac6DataTypes, PowerActions, PowerState } from "./enums/iDrac6";
 import debug from "debug";
+import { iDracMultipleDataResult, iDracTemperature } from "./interfaces/idrac";
 import parser = require("fast-xml-parser");
-import { iDracTemperature } from "./interfaces/idrac";
 
 /**
  * Main iDrac6 Class
  */
 export class iDrac6 {
-    /** @hidden */
+    /**
+     * Static Exports
+     */
+
+    /**
+     * Export all iDrac Data Types you can request currently
+     */
+    static IDRAC_DATA_TYPES = IDrac6DataTypes;
+
+    /**
+     * All power states this library could return
+     */
+    static POWER_STATES = PowerState;
+
+    /**
+     * All power actions you can send with this library
+     */
+    static POWER_ACTIONS = PowerActions;
+
+    /**
+     * Internal data
+     */
+
     private options?: IDrac6Options;
-    /** @hidden */
     private host?: string;
-    /** @hidden */
     private port?: number;
-    /** @hidden */
     private ssl?: boolean;
-    /** @hidden */
     private localSession?: IDrac6Session;
-    /** @hidden */
     private sessionDebug = debug("iDrac6 Session");
-    /** @hidden */
     private idracDebug = debug("iDrac6");
-    /** @hidden */
     private idracAction = debug("iDrac6 Actions");
-    /** @hidden */
     private CookieRegex = new RegExp(/_appwebSessionId_=(.*?);/gm);
 
+    /**
+     * Initial this library.
+     * @param options
+     */
     constructor(options?: IDrac6Options) {
         this.options = options;
     }
 
     /**
+     * Update current instance options.
+     * *Note*: This function also validates them. So make sure they are correct.
+     * @param options
+     */
+    public updateOptions(options?: IDrac6Options): void {
+        this.options = options;
+        this.validateOptions();
+    }
+
+    /**
+     * Get multiple idrac data types at once to save some time
+     * @param data
+     */
+    public async getMultipleData(
+        data: IDrac6DataTypes[]
+    ): Promise<iDracMultipleDataResult> {
+        this.idracAction("Get multiple data types %O", data);
+        const rawData = await this.getData(data);
+        const idracResult: iDracMultipleDataResult = {};
+        for (const type of data) {
+            if (type === IDrac6DataTypes.PowerState) {
+                idracResult[IDrac6DataTypes.PowerState] = this._getPowerState(
+                    rawData
+                );
+            } else if (type === IDrac6DataTypes.Temperature) {
+                idracResult[IDrac6DataTypes.Temperature] = this._getTemperature(
+                    rawData
+                );
+            }
+        }
+        return idracResult;
+    }
+
+    /**
      * Get current idrac power state
      */
-    public async getPowerState() {
+    public async getPowerState(): Promise<PowerState> {
         this.idracAction("Get power state");
         const result = await this.getData([IDrac6DataTypes.PowerState]);
         const pwState = this._getPowerState(result);
@@ -61,7 +113,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @param data
      */
     private _getPowerState(data: any) {
@@ -72,7 +123,9 @@ export class iDrac6 {
      * Send an action to set a new power state
      * @param action
      */
-    public async sendPowerAction(action: PowerActions = PowerActions.ON) {
+    public async sendPowerAction(
+        action: PowerActions = PowerActions.ON
+    ): Promise<void> {
         this.idracAction("Send power state: %d", action);
         const searchParams = new URLSearchParams();
         searchParams.set("set", "pwState:" + action);
@@ -94,7 +147,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @param data
      */
     private _getTemperature(data: any): iDracTemperature {
@@ -111,7 +163,8 @@ export class iDrac6 {
     }
 
     /**
-     * Check whether the options are valid
+     * Validate current instance options.
+     * Method also gets called if you invoke updateOptions()
      */
     public validateOptions() {
         if (!this.options)
@@ -134,7 +187,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @param session
      */
     private async saveSession(session?: IDrac6Session) {
@@ -155,10 +207,6 @@ export class iDrac6 {
         this.localSession = session;
     }
 
-    /**
-     *
-     * @hidden
-     */
     private async getSession(): Promise<IDrac6Session | false> {
         this.validateOptions();
         if (this.options) {
@@ -183,7 +231,8 @@ export class iDrac6 {
     }
 
     /**
-     * You don't need to invoke this function by yourself. It gets invoked automatically.
+     * You don't need to invoke this function by yourself.
+     * It gets invoked automatically, if there is no session or the current is not valid anymore.
      */
     public async login() {
         this.validateOptions();
@@ -229,7 +278,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @param actions
      */
     private async getData(actions: IDrac6DataTypes[]) {
@@ -246,7 +294,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @readonly
      * @private
      * @memberof iDrac6
@@ -266,7 +313,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @readonly
      * @private
      * @memberof iDrac6
@@ -315,7 +361,6 @@ export class iDrac6 {
 
     /**
      *
-     * @hidden
      * @readonly
      * @private
      * @type {(string | void)}
