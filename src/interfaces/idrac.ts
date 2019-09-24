@@ -19,4 +19,10 @@ export interface iDracTemperature {
 export interface iDracMultipleDataResult {
     [IDrac6DataTypes.PowerState]?: PowerState;
     [IDrac6DataTypes.Temperature]?: iDracTemperature;
+    [IDrac6DataTypes.BiosVersion]?: string;
+    [IDrac6DataTypes.FirmwareVersion]?: string;
+    [IDrac6DataTypes.HostName]?: string;
+    [IDrac6DataTypes.SystemDescription]?: string;
+    [IDrac6DataTypes.SystemRevision]?: string;
+    [IDrac6DataTypes.LifecycleControllerFirmwareVersion]?: string;
 }

@@ -95,9 +95,24 @@ export class iDrac6 {
                 idracResult[IDrac6DataTypes.Temperature] = this._getTemperature(
                     rawData
                 );
+            } else if (
+                [
+                    IDrac6DataTypes.BiosVersion,
+                    IDrac6DataTypes.FirmwareVersion,
+                    IDrac6DataTypes.LifecycleControllerFirmwareVersion,
+                    IDrac6DataTypes.SystemRevision,
+                    IDrac6DataTypes.HostName,
+                    IDrac6DataTypes.SystemDescription,
+                ].includes(type)
+            ) {
+                idracResult[type] = this.extractKey(data, type);
             }
         }
         return idracResult;
+    }
+
+    private extractKey(data: any, key: string) {
+        return get(data, "root." + key, null);
     }
 
     /**
