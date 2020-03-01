@@ -12,7 +12,7 @@ import {
 import { IDrac6Session } from "./interfaces/iDrac6Session";
 import { join } from "path";
 import { pathExists, readJSON, unlink, writeJSON } from "fs-extra";
-import ky, { AfterResponseHook, BeforeRequestHook } from "ky-universal";
+import ky from "ky-universal";
 import { iDrac6LoginError } from "./errors/iDrac6Error";
 import { Agent } from "https";
 import { homedir } from "os";
@@ -20,6 +20,7 @@ import { IDrac6DataTypes, PowerActions, PowerState } from "./enums/iDrac6";
 import debug from "debug";
 import { iDracMultipleDataResult, iDracTemperature } from "./interfaces/idrac";
 import parser = require("fast-xml-parser");
+import { NormalizedOptions } from "ky";
 
 /**
  * Main iDrac6 Class
@@ -261,8 +262,9 @@ export class iDrac6 {
             body: searchParams,
         });
         const text = await response.text();
-        const tObj = parser.getTraversalObj(text);
-        const parsed = parser.convertToJson(tObj);
+        this.sessionDebug("Login response xml: %s", text);
+        const tObj = parser.getTraversalObj(text, { arrayMode: false });
+        const parsed = parser.convertToJson(tObj, { arrayMode: false });
         const result: number = get(parsed, "root.authResult", 1);
         this.sessionDebug("Login response: %O", parsed);
         if (result === 0) {
@@ -302,8 +304,8 @@ export class iDrac6 {
             searchParams,
         });
         const text = await response.text();
-        const tObj = parser.getTraversalObj(text);
-        const parsed = parser.convertToJson(tObj);
+        const tObj = parser.getTraversalObj(text, { arrayMode: false });
+        const parsed = parser.convertToJson(tObj, { arrayMode: false });
         return parsed;
     }
 
@@ -336,7 +338,11 @@ export class iDrac6 {
         return this.baseKy.extend({
             hooks: {
                 afterResponse: [
-                    (async (input, options, response) => {
+                    async (
+                        request: Request,
+                        options: NormalizedOptions,
+                        response: Response
+                    ) => {
                         if (response.status === 401) {
                             this.sessionDebug(
                                 "Response status is 401. Try to login."
@@ -344,31 +350,31 @@ export class iDrac6 {
                             await this.login();
                             const session = await this.getSession();
                             if (session) {
-                                options.headers.set(
+                                request.headers.set(
                                     "Cookie",
                                     `_appwebSessionId_=${session.sessionId}`
                                 );
-                                return this.baseKy(input, options);
+                                return this.baseKy(request, options);
                             }
                         }
                         this.sessionDebug("Got idrac 6 response %j", response);
                         return response;
-                    }) as AfterResponseHook,
+                    },
                 ],
                 beforeRequest: [
-                    (async (input, options) => {
+                    async (request: Request) => {
                         const session = await this.getSession();
                         if (session) {
                             this.sessionDebug(
                                 "Session exists. Set headers. Session: %O",
                                 session
                             );
-                            options.headers.set(
+                            request.headers.set(
                                 "Cookie",
                                 `_appwebSessionId_=${session.sessionId}`
                             );
                         }
-                    }) as BeforeRequestHook,
+                    },
                 ],
             },
         });
