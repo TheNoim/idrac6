@@ -77,9 +77,10 @@
     <span class="hljs-attr">username</span>: <span class="hljs-string">""</span>,
     <span class="hljs-attr">pasword</span>: <span class="hljs-string">""</span>,
     <span class="hljs-attr">address</span>: <span class="hljs-string">"https://ip"</span>,
+    <span class="hljs-attr">newAuth</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// On older idrac6 version you can set this to false. On the newest idrac6 version (2.92) you need to set this to true.</span>
     <span class="hljs-attr">sessionOptions</span>: {
         <span class="hljs-attr">saveSession</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// This module can save your session and reuse it automatically</span>
-        path: <span class="hljs-string">"./session.json"</span>,
+        <span class="hljs-attr">path</span>: <span class="hljs-string">"./session.json"</span>,
     },
 });
 

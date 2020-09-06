@@ -12,6 +12,10 @@ export interface IDrac6Options {
     validateSSL?: boolean;
     sessionOptions?: IDrac6SessionStoreOptions;
     timeout?: number;
+    /**
+     * On newer idrac6 versions you need to use a different auth method. Set newAuth to true if login fails.
+     */
+    newAuth?: boolean;
 }
 
 /**

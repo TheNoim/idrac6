@@ -11,6 +11,7 @@ const idrac = new iDrac6({
     username: "",
     pasword: "",
     address: "https://ip",
+    newAuth: true, // On older idrac6 version you can set this to false. On the newest idrac6 version (2.92) you need to set this to true.
     sessionOptions: {
         saveSession: true, // This module can save your session and reuse it automatically
         path: "./session.json",

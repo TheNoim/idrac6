@@ -86,6 +86,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="idrac6options.html#address" class="tsd-kind-icon">address</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="idrac6options.html#newauth" class="tsd-kind-icon">new<wbr>Auth</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="idrac6options.html#password" class="tsd-kind-icon">password</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="idrac6options.html#sessionoptions" class="tsd-kind-icon">session<wbr>Options</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="idrac6options.html#timeout" class="tsd-kind-icon">timeout</a></li>
@@ -104,9 +105,24 @@
 					<div class="tsd-signature tsd-kind-icon">address<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L11">interfaces/iDrac6Options.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L11">src/interfaces/iDrac6Options.ts:11</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="newauth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> new<wbr>Auth</h3>
+					<div class="tsd-signature tsd-kind-icon">new<wbr>Auth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L18">src/interfaces/iDrac6Options.ts:18</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>On newer idrac6 versions you need to use a different auth method. Set newAuth to true if login fails.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 					<a name="password" class="tsd-anchor"></a>
@@ -114,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">password<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L10">interfaces/iDrac6Options.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L10">src/interfaces/iDrac6Options.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -124,7 +140,7 @@
 					<div class="tsd-signature tsd-kind-icon">session<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="idrac6sessionstoreoptions.html" class="tsd-signature-type">IDrac6SessionStoreOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L13">interfaces/iDrac6Options.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L13">src/interfaces/iDrac6Options.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -134,7 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L14">interfaces/iDrac6Options.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L14">src/interfaces/iDrac6Options.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -144,7 +160,7 @@
 					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L9">interfaces/iDrac6Options.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L9">src/interfaces/iDrac6Options.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -154,7 +170,7 @@
 					<div class="tsd-signature tsd-kind-icon">validateSSL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/7444fbd/src/interfaces/iDrac6Options.ts#L12">interfaces/iDrac6Options.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/2093d98/src/interfaces/iDrac6Options.ts#L12">src/interfaces/iDrac6Options.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -198,6 +214,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="idrac6options.html#address" class="tsd-kind-icon">address</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+								<a href="idrac6options.html#newauth" class="tsd-kind-icon">new<wbr>Auth</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="idrac6options.html#password" class="tsd-kind-icon">password</a>

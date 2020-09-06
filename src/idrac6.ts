@@ -232,9 +232,15 @@ export class iDrac6 {
                         this.options.sessionOptions.path ||
                         join(join(homedir(), "./idrac6/"), "./session.json");
                     if (await pathExists(path)) {
-                        const data = await readJSON(path, { throws: false });
-                        if (data) {
-                            return data as IDrac6Session;
+                        const data: IDrac6Session = await readJSON(path, {
+                            throws: false,
+                        });
+                        if (data && !this.options.newAuth) {
+                            return data;
+                        } else if (data && this.options.newAuth) {
+                            if (data.st1 && data.st2) {
+                                return data;
+                            }
                         }
                     }
                 }
@@ -258,19 +264,49 @@ export class iDrac6 {
         searchParams.append("password", this.options.password);
         this.sessionDebug("Try to login.");
         const response = await this.baseKy("data/login", {
-            method: "post",
-            body: searchParams,
+            method: this.options.newAuth ? "POST" : "post",
+            body: this.options.newAuth ? searchParams.toString() : searchParams,
+            headers: this.options.newAuth
+                ? {
+                      "Content-Type": "application/x-www-form-urlencoded",
+                      "Content-Length": `${searchParams.toString().length}`,
+                  }
+                : {},
         });
         const text = await response.text();
         this.sessionDebug("Login response xml: %s", text);
         const tObj = parser.getTraversalObj(text, { arrayMode: false });
         const parsed = parser.convertToJson(tObj, { arrayMode: false });
         const result: number = get(parsed, "root.authResult", 1);
+        const forwardUrl = get(parsed, "root.forwardUrl");
         this.sessionDebug("Login response: %O", parsed);
         if (result === 0) {
             // Success
-            const setCookieString = response.headers.get("Set-Cookie");
-            if (setCookieString) {
+            const setCookieString = response.headers.get("set-cookie");
+            let ST1;
+            let ST2;
+            if (this.options.newAuth) {
+                let stString = forwardUrl?.split?.("?")?.[1];
+                let stStrings = stString?.split?.(",");
+                if (stStrings?.length >= 2) {
+                    for (const stValueString of stStrings) {
+                        const [key, value] = stValueString?.split?.("=") ?? [
+                            null,
+                            null,
+                        ];
+                        if (key && value) {
+                            if (key === "ST1") {
+                                ST1 = value;
+                            } else if (key === "ST2") {
+                                ST2 = value;
+                            }
+                        }
+                    }
+                }
+            }
+            if (setCookieString && (this.options.newAuth ? ST1 && ST2 : true)) {
+                if (this.options.newAuth)
+                    this.sessionDebug("ST1: %s ST2: %s", ST1, ST2);
                 const regexArray = this.CookieRegex.exec(setCookieString);
                 if (regexArray && regexArray.length >= 2) {
                     const sessionString: string = regexArray[1];
@@ -280,6 +316,7 @@ export class iDrac6 {
                         ssl: this.ssl!,
                         username: this.options && this.options.username,
                         sessionId: sessionString,
+                        ...(this.options.newAuth ? { st2: ST2, st1: ST1 } : {}),
                     };
                     this.sessionDebug(
                         "Create session and save it: %O",
@@ -373,6 +410,19 @@ export class iDrac6 {
                                 "Cookie",
                                 `_appwebSessionId_=${session.sessionId}`
                             );
+                            if (
+                                this.options?.newAuth ||
+                                (session.st1 && session.st2)
+                            ) {
+                                this.sessionDebug(
+                                    "Session exists. Set ST2: %s",
+                                    session.st2
+                                );
+                                request.headers.set(
+                                    "ST2",
+                                    session.st2 as string
+                                );
+                            }
                         }
                     },
                 ],
