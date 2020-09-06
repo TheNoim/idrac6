@@ -27,5 +27,8 @@
     "scripts": {
         "build": "tsc",
         "docs": "typedoc --excludeProtected --target ES6 --excludePrivate --mode file --name iDrac6 --out docs/ src/idrac6.ts && touch docs/.nojekyll"
+    },
+    "resolutions": {
+        "lodash": "4.17.20"
     }
 }
