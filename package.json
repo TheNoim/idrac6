@@ -9,8 +9,8 @@
     "devDependencies": {
         "@types/debug": "^4.1.5",
         "@types/fs-extra": "^9.0.11",
-        "@types/lodash.get": "^4.4.6",
         "@types/node": "^15.0.2",
+        "@types/lodash-es": "^4.17.4",
         "prettier": "^2.2.1",
         "prettierrc": "^0.0.0-5",
         "ts-node": "^9.1.1",
@@ -23,11 +23,12 @@
         "fs-extra": "^10.0.0",
         "ky": "^0.28.0",
         "ky-universal": "^0.9.1",
-        "lodash": "^4.17.21"
+        "lodash-es": "^4.17.21"
     },
     "scripts": {
         "build": "tsc",
-        "docs": "typedoc --excludeInternal false --excludePrivate --name iDrac6 --out docs/ src/index.ts && touch docs/.nojekyll"
+        "docs": "typedoc --excludeInternal false --excludePrivate --name iDrac6 --out docs/ src/index.ts && touch docs/.nojekyll",
+        "test": "node --loader ts-node/esm src/test.ts"
     },
     "resolutions": {
         "lodash": "4.17.21"
