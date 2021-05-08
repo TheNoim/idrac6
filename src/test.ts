@@ -1,7 +1,10 @@
-import { IDrac6Options } from "./src/interfaces/iDrac6Options";
-import { iDrac6, IDrac6DataTypes } from "./src";
+import { IDrac6Options, iDrac6, IDrac6DataTypes } from "./index.js";
+import { readFile } from "fs/promises";
+import { URL } from "url";
 
-const config = require("./testConfig.json") as IDrac6Options;
+const config = JSON.parse(
+    (await readFile(new URL("../testConfig.json", import.meta.url))).toString()
+) as IDrac6Options;
 
 console.log({ config });
 

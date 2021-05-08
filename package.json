@@ -1,34 +1,39 @@
 {
     "name": "idrac6",
     "version": "1.1.1",
-    "main": "dist/index.js",
+    "type": "module",
+    "module": "dist/index.js",
     "license": "MIT",
+    "homepage": "https://noim.me/idrac6/",
     "devDependencies": {
         "@types/debug": "^4.1.5",
-        "@types/fs-extra": "^8.1.0",
+        "@types/fs-extra": "^9.0.11",
         "@types/lodash.get": "^4.4.6",
-        "@types/node": "^13.7.7",
-        "prettier": "^1.19.1",
+        "@types/node": "^15.0.2",
+        "prettier": "^2.2.1",
         "prettierrc": "^0.0.0-5",
-        "ts-node": "^8.6.2",
-        "typedoc": "^0.15.0",
-        "typedoc-plugin-external-module-name": "^2.1.0",
-        "typedoc-plugin-internal-external": "^2.1.1",
-        "typescript": "^3.8.3"
+        "ts-node": "^9.1.1",
+        "typedoc": "^0.20.36",
+        "typescript": "^4.2.4"
     },
     "dependencies": {
-        "debug": "^4.1.1",
-        "fast-xml-parser": "^3.16.0",
-        "fs-extra": "^8.1.0",
-        "ky": "^0.18.0",
-        "ky-universal": "^0.5.0",
-        "lodash.get": "^4.4.2"
+        "debug": "^4.3.1",
+        "fast-xml-parser": "^3.19.0",
+        "fs-extra": "^10.0.0",
+        "ky": "^0.28.0",
+        "ky-universal": "^0.9.1",
+        "lodash": "^4.17.21"
     },
     "scripts": {
         "build": "tsc",
-        "docs": "typedoc --excludeProtected --target ES6 --excludePrivate --mode file --name iDrac6 --out docs/ src/idrac6.ts && touch docs/.nojekyll"
+        "docs": "typedoc --excludeInternal false --excludePrivate --name iDrac6 --out docs/ src/index.ts && touch docs/.nojekyll"
     },
     "resolutions": {
-        "lodash": "4.17.20"
-    }
+        "lodash": "4.17.21"
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "yarn.lock"
+    ]
 }

@@ -2,25 +2,31 @@
  * @module iDrac6
  */
 
-import { IDrac6Options } from "./interfaces/iDrac6Options";
+import { IDrac6Options } from "./interfaces/iDrac6Options.js";
 import get from "lodash.get";
 import { URL, URLSearchParams } from "url";
 import {
     iDrac6ConfigError,
     iDrac6MissingConfigError,
-} from "./errors/ConfigErrors";
-import { IDrac6Session } from "./interfaces/iDrac6Session";
+} from "./errors/ConfigErrors.js";
+import { IDrac6Session } from "./interfaces/iDrac6Session.js";
 import { join } from "path";
-import { pathExists, readJSON, unlink, writeJSON } from "fs-extra";
+import fsExtra from "fs-extra";
+import { unlink } from "fs/promises";
 import ky from "ky-universal";
-import { iDrac6LoginError } from "./errors/iDrac6Error";
+import { iDrac6LoginError } from "./errors/iDrac6Error.js";
 import { Agent } from "https";
 import { homedir } from "os";
-import { IDrac6DataTypes, PowerActions, PowerState } from "./enums/iDrac6";
+import { IDrac6DataTypes, PowerActions, PowerState } from "./enums/iDrac6.js";
 import debug from "debug";
-import { iDracMultipleDataResult, iDracTemperature } from "./interfaces/idrac";
-import parser = require("fast-xml-parser");
-import { NormalizedOptions } from "ky";
+import {
+    iDracMultipleDataResult,
+    iDracTemperature,
+} from "./interfaces/idrac.js";
+import * as parser from "fast-xml-parser";
+import { NormalizedOptions } from "ky/distribution/types/options.js";
+
+const { pathExists, readJSON, writeJSON } = fsExtra;
 
 /**
  * Main iDrac6 Class

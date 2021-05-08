@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>iDracMultipleDataResult | iDrac6</title>
+	<title>IDrac6Session | iDrac6</title>
 	<meta name="description" content="Documentation for iDrac6">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,29 +55,21 @@
 					<a href="../modules.html">iDrac6</a>
 				</li>
 				<li>
-					<a href="idracmultipledataresult.html">iDracMultipleDataResult</a>
+					<a href="idrac6session.html">IDrac6Session</a>
 				</li>
 			</ul>
-			<h1>Interface iDracMultipleDataResult</h1>
+			<h1>Interface IDrac6Session</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<dl class="tsd-comment-tags">
-						<dt>internal</dt>
-						<dd></dd>
-					</dl>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">iDracMultipleDataResult</span>
+						<span class="target">IDrac6Session</span>
 					</li>
 				</ul>
 			</section>
@@ -88,14 +80,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#lccfwversion" class="tsd-kind-icon">LCCfw<wbr>Version</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#biosver" class="tsd-kind-icon">bios<wbr>Ver</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#fwversion" class="tsd-kind-icon">fw<wbr>Version</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#hostname" class="tsd-kind-icon">host<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#pwstate" class="tsd-kind-icon">pw<wbr>State</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#sysdesc" class="tsd-kind-icon">sys<wbr>Desc</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#sysrev" class="tsd-kind-icon">sys<wbr>Rev</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idracmultipledataresult.html#temperatures" class="tsd-kind-icon">temperatures</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#host" class="tsd-kind-icon">host</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#port" class="tsd-kind-icon">port</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#sessionid" class="tsd-kind-icon">session<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#ssl" class="tsd-kind-icon">ssl</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#st1" class="tsd-kind-icon">st1</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#st2" class="tsd-kind-icon">st2</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idrac6session.html#username" class="tsd-kind-icon">username</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,82 +95,72 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="lccfwversion" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> LCCfw<wbr>Version</h3>
-					<div class="tsd-signature tsd-kind-icon">LCCfw<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="host" class="tsd-anchor"></a>
+					<h3>host</h3>
+					<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L27">interfaces/idrac.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L12">interfaces/iDrac6Session.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="biosver" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> bios<wbr>Ver</h3>
-					<div class="tsd-signature tsd-kind-icon">bios<wbr>Ver<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="port" class="tsd-anchor"></a>
+					<h3>port</h3>
+					<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L22">interfaces/idrac.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L13">interfaces/iDrac6Session.ts:13</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="fwversion" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fw<wbr>Version</h3>
-					<div class="tsd-signature tsd-kind-icon">fw<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="sessionid" class="tsd-anchor"></a>
+					<h3>session<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">session<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L23">interfaces/idrac.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L7">interfaces/iDrac6Session.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hostname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> host<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">host<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="ssl" class="tsd-anchor"></a>
+					<h3>ssl</h3>
+					<div class="tsd-signature tsd-kind-icon">ssl<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L24">interfaces/idrac.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L11">interfaces/iDrac6Session.ts:11</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="pwstate" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> pw<wbr>State</h3>
-					<div class="tsd-signature tsd-kind-icon">pw<wbr>State<span class="tsd-signature-symbol">:</span> <a href="../enums/powerstate.html" class="tsd-signature-type" data-tsd-kind="Enumeration">PowerState</a></div>
+					<a name="st1" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> st1</h3>
+					<div class="tsd-signature tsd-kind-icon">st1<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L20">interfaces/idrac.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L8">interfaces/iDrac6Session.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sysdesc" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sys<wbr>Desc</h3>
-					<div class="tsd-signature tsd-kind-icon">sys<wbr>Desc<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="st2" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> st2</h3>
+					<div class="tsd-signature tsd-kind-icon">st2<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L25">interfaces/idrac.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L9">interfaces/iDrac6Session.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="sysrev" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> sys<wbr>Rev</h3>
-					<div class="tsd-signature tsd-kind-icon">sys<wbr>Rev<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="username" class="tsd-anchor"></a>
+					<h3>username</h3>
+					<div class="tsd-signature tsd-kind-icon">username<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L26">interfaces/idrac.ts:26</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="temperatures" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> temperatures</h3>
-					<div class="tsd-signature tsd-kind-icon">temperatures<span class="tsd-signature-symbol">:</span> <a href="idractemperature.html" class="tsd-signature-type" data-tsd-kind="Interface">iDracTemperature</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/idrac.ts#L21">interfaces/idrac.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/TheNoim/idrac6/blob/cd234a0/src/interfaces/iDrac6Session.ts#L10">interfaces/iDrac6Session.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -210,45 +191,42 @@
 					<li class=" tsd-kind-interface">
 						<a href="idrac6options.html" class="tsd-kind-icon">IDrac6<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface">
-						<a href="idrac6session.html" class="tsd-kind-icon">IDrac6<wbr>Session</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="idrac6sessionstoreoptions.html" class="tsd-kind-icon">IDrac6<wbr>Session<wbr>Store<wbr>Options</a>
-					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="idracmultipledataresult.html" class="tsd-kind-icon">i<wbr>Drac<wbr>Multiple<wbr>Data<wbr>Result</a>
+						<a href="idrac6session.html" class="tsd-kind-icon">IDrac6<wbr>Session</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#lccfwversion" class="tsd-kind-icon">LCCfw<wbr>Version</a>
+								<a href="idrac6session.html#host" class="tsd-kind-icon">host</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#biosver" class="tsd-kind-icon">bios<wbr>Ver</a>
+								<a href="idrac6session.html#port" class="tsd-kind-icon">port</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#fwversion" class="tsd-kind-icon">fw<wbr>Version</a>
+								<a href="idrac6session.html#sessionid" class="tsd-kind-icon">session<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#hostname" class="tsd-kind-icon">host<wbr>Name</a>
+								<a href="idrac6session.html#ssl" class="tsd-kind-icon">ssl</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#pwstate" class="tsd-kind-icon">pw<wbr>State</a>
+								<a href="idrac6session.html#st1" class="tsd-kind-icon">st1</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#sysdesc" class="tsd-kind-icon">sys<wbr>Desc</a>
+								<a href="idrac6session.html#st2" class="tsd-kind-icon">st2</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#sysrev" class="tsd-kind-icon">sys<wbr>Rev</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="idracmultipledataresult.html#temperatures" class="tsd-kind-icon">temperatures</a>
+								<a href="idrac6session.html#username" class="tsd-kind-icon">username</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="idrac6sessionstoreoptions.html" class="tsd-kind-icon">IDrac6<wbr>Session<wbr>Store<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="idracmultipledataresult.html" class="tsd-kind-icon">i<wbr>Drac<wbr>Multiple<wbr>Data<wbr>Result</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="idractemperature.html" class="tsd-kind-icon">i<wbr>Drac<wbr>Temperature</a>
 					</li>

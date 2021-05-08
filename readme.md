@@ -2,10 +2,14 @@
 
 A basic library to interact with an idrac6 remote managment system written in TypeScript for JavaScript and TypeScript usage.
 
+> ***Warning***: This is a pure ESM package now. Read more here: [Pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)
+> 
+> If you still need this package as commonjs module, use any v1 version of this package.
+
 ## JavaScript Example:
 
 ```javascript
-const { iDrac6 } = require("idrac6");
+import { iDrac6 } from 'idrac6';
 
 const idrac = new iDrac6({
     username: "",
