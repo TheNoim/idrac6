@@ -2,7 +2,8 @@
     "name": "idrac6",
     "version": "2.0.0",
     "type": "module",
-    "module": "dist/index.js",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
     "license": "MIT",
     "homepage": "https://noim.me/idrac6/",
     "devDependencies": {
