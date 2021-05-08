@@ -3,7 +3,7 @@
  */
 
 import { IDrac6Options } from "./interfaces/iDrac6Options.js";
-import get from "lodash.get";
+import { get } from "lodash";
 import { URL, URLSearchParams } from "url";
 import {
     iDrac6ConfigError,
