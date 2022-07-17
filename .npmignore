@@ -7,3 +7,6 @@ testConfig.json
 .Ds_Store
 session.json
 docs/
+.yarn
+.yarnrc.yml
+tsconfig.cjs.json

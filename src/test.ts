@@ -3,7 +3,9 @@ import { readFile } from "fs/promises";
 import { URL } from "url";
 
 const config = JSON.parse(
-    (await readFile(new URL("../testConfig.json", import.meta.url))).toString()
+    (
+        await readFile(new URL("../../testConfig.json", import.meta.url))
+    ).toString()
 ) as IDrac6Options;
 
 console.log({ config });

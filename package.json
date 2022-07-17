@@ -2,33 +2,37 @@
     "name": "idrac6",
     "version": "2.0.3",
     "type": "module",
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
     "license": "MIT",
     "homepage": "https://noim.me/idrac6/",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "exports": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+    },
     "devDependencies": {
-        "@types/debug": "^4.1.5",
-        "@types/fs-extra": "^9.0.11",
-        "@types/node": "^15.0.2",
-        "@types/lodash-es": "^4.17.4",
-        "prettier": "^2.2.1",
+        "@types/debug": "^4.1.7",
+        "@types/fs-extra": "^9.0.13",
+        "@types/lodash-es": "^4.17.6",
+        "@types/node": "^18.0.5",
+        "prettier": "^2.7.1",
         "prettierrc": "^0.0.0-5",
-        "ts-node": "^9.1.1",
-        "typedoc": "^0.20.36",
-        "typescript": "^4.2.4"
+        "typedoc": "^0.23.7",
+        "typescript": "^4.7.4"
     },
     "dependencies": {
-        "debug": "^4.3.1",
-        "fast-xml-parser": "^3.19.0",
-        "fs-extra": "^10.0.0",
-        "ky": "^0.28.0",
+        "debug": "^4.3.4",
+        "fast-xml-parser": "^4.0.9",
+        "fs-extra": "^10.1.0",
+        "ky": "^0.31.0",
         "ky-universal": "^0.9.1",
         "lodash-es": "^4.17.21"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && tsc -p tsconfig.cjs.json",
         "docs": "typedoc --excludeInternal false --excludePrivate --name iDrac6 --out docs/ src/index.ts && touch docs/.nojekyll",
-        "test": "node --loader ts-node/esm src/test.ts"
+        "test": "tsc && node dist/esm/test.js",
+        "format": "prettier --write ./src/**/*"
     },
     "resolutions": {
         "lodash": "4.17.21"
@@ -37,5 +41,6 @@
         "dist",
         "package.json",
         "yarn.lock"
-    ]
+    ],
+    "packageManager": "yarn@3.2.1"
 }

@@ -10,7 +10,7 @@ import {
     iDrac6MissingConfigError,
 } from "./errors/ConfigErrors.js";
 import { IDrac6Session } from "./interfaces/iDrac6Session.js";
-import { join } from "path";
+import { join, dirname } from "path";
 import fsExtra from "fs-extra";
 import { unlink } from "fs/promises";
 import ky from "ky-universal";
@@ -23,10 +23,12 @@ import {
     iDracMultipleDataResult,
     iDracTemperature,
 } from "./interfaces/idrac.js";
-import * as parser from "fast-xml-parser";
+import { XMLParser } from "fast-xml-parser";
 import { NormalizedOptions } from "ky/distribution/types/options.js";
 
-const { pathExists, readJSON, writeJSON } = fsExtra;
+const { pathExists, readJSON, writeJSON, ensureDir } = fsExtra;
+
+const parser = new XMLParser();
 
 /**
  * Main iDrac6 Class
@@ -95,13 +97,11 @@ export class iDrac6 {
         const idracResult: iDracMultipleDataResult = {};
         for (const type of data) {
             if (type === IDrac6DataTypes.PowerState) {
-                idracResult[IDrac6DataTypes.PowerState] = this._getPowerState(
-                    rawData
-                );
+                idracResult[IDrac6DataTypes.PowerState] =
+                    this._getPowerState(rawData);
             } else if (type === IDrac6DataTypes.Temperature) {
-                idracResult[IDrac6DataTypes.Temperature] = this._getTemperature(
-                    rawData
-                );
+                idracResult[IDrac6DataTypes.Temperature] =
+                    this._getTemperature(rawData);
             } else if (
                 [
                     IDrac6DataTypes.BiosVersion,
@@ -212,18 +212,17 @@ export class iDrac6 {
      * @param session
      */
     private async saveSession(session?: IDrac6Session) {
-        if (this.options) {
-            if (this.options.sessionOptions) {
-                if (this.options.sessionOptions.saveSession) {
-                    const path =
-                        this.options.sessionOptions.path ||
-                        join(join(homedir(), "./idrac6/"), "./session.json");
-                    if (!session) {
-                        await unlink(path);
-                    } else {
-                        await writeJSON(path, session);
-                    }
-                }
+        if (this.options?.sessionOptions?.saveSession) {
+            const path =
+                this.options.sessionOptions.path ??
+                join(join(homedir(), "./idrac6/"), "./session.json");
+            const dir = dirname(path);
+            if (!session) {
+                await unlink(path);
+            } else {
+                this.sessionDebug("Session location: %s", path);
+                await ensureDir(dir);
+                await writeJSON(path, session);
             }
         }
         this.localSession = session;
@@ -231,23 +230,20 @@ export class iDrac6 {
 
     private async getSession(): Promise<IDrac6Session | false> {
         this.validateOptions();
-        if (this.options) {
-            if (this.options.sessionOptions) {
-                if (this.options.sessionOptions.saveSession) {
-                    const path =
-                        this.options.sessionOptions.path ||
-                        join(join(homedir(), "./idrac6/"), "./session.json");
-                    if (await pathExists(path)) {
-                        const data: IDrac6Session = await readJSON(path, {
-                            throws: false,
-                        });
-                        if (data && !this.options.newAuth) {
-                            return data;
-                        } else if (data && this.options.newAuth) {
-                            if (data.st1 && data.st2) {
-                                return data;
-                            }
-                        }
+        if (this.options?.sessionOptions?.saveSession) {
+            const path =
+                this.options.sessionOptions.path ??
+                join(join(homedir(), "./idrac6/"), "./session.json");
+            if (await pathExists(path)) {
+                this.sessionDebug("Session location: %s", path);
+                const data: IDrac6Session = await readJSON(path, {
+                    throws: false,
+                });
+                if (data && !this.options.newAuth) {
+                    return data;
+                } else if (data && this.options.newAuth) {
+                    if (data.st1 && data.st2) {
+                        return data;
                     }
                 }
             }
@@ -281,8 +277,8 @@ export class iDrac6 {
         });
         const text = await response.text();
         this.sessionDebug("Login response xml: %s", text);
-        const tObj = parser.getTraversalObj(text, { arrayMode: false });
-        const parsed = parser.convertToJson(tObj, { arrayMode: false });
+        const parsed = parser.parse(text);
+        console.log(parsed);
         const result: number = get(parsed, "root.authResult", 1);
         const forwardUrl = get(parsed, "root.forwardUrl");
         this.sessionDebug("Login response: %O", parsed);
@@ -347,8 +343,7 @@ export class iDrac6 {
             searchParams,
         });
         const text = await response.text();
-        const tObj = parser.getTraversalObj(text, { arrayMode: false });
-        const parsed = parser.convertToJson(tObj, { arrayMode: false });
+        const parsed = parser.parse(text);
         return parsed;
     }
 
@@ -398,6 +393,10 @@ export class iDrac6 {
                                     `_appwebSessionId_=${session.sessionId}`
                                 );
                                 return this.baseKy(request, options);
+                            } else {
+                                this.sessionDebug(
+                                    "No idrac6 session found in afterResponse hook"
+                                );
                             }
                         }
                         this.sessionDebug("Got idrac 6 response %j", response);
@@ -429,6 +428,10 @@ export class iDrac6 {
                                     session.st2 as string
                                 );
                             }
+                        } else {
+                            this.sessionDebug(
+                                "No idrac6 session found in beforeRequest hook"
+                            );
                         }
                     },
                 ],
