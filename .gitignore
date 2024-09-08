@@ -1,4 +1,6 @@
-dist/
+dist/esm/
+dist/cjs/*
+!dist/cjs/package.json
 .idea/
 node_modules/
 testConfig.json
@@ -7,11 +9,3 @@ testConfig.json
 .DS_store
 .Ds_Store
 session.json
-
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
