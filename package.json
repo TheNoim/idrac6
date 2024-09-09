@@ -4,16 +4,11 @@
     "type": "module",
     "license": "MIT",
     "homepage": "https://noim.me/idrac6/",
-    "main": "dist/cjs/index.js",
-    "module": "dist/esm/index.js",
-    "exports": {
-        "import": "./dist/esm/index.js",
-        "require": "./dist/cjs/index.js"
-    },
+    "exports": "./dist/index.js",
     "devDependencies": {
         "@types/debug": "^4.1.7",
         "@types/fs-extra": "^9.0.13",
-        "@types/lodash-es": "^4.17.6",
+        "@types/lodash-es": "^4.17.12",
         "@types/node": "^18.0.5",
         "prettier": "^2.7.1",
         "typedoc": "^0.23.7",
@@ -28,18 +23,18 @@
         "lodash-es": "^4.17.21"
     },
     "scripts": {
-        "build": "tsc && tsc -p tsconfig.cjs.json",
+        "build": "tsc",
         "docs": "typedoc --excludeInternal false --cleanOutputDir --cname noim.me --excludePrivate --name iDrac6 --out docs/ src/index.ts",
         "test": "tsc && node dist/esm/test.js",
         "format": "prettier --write ./src/**/*"
-    },
-    "resolutions": {
-        "lodash": "4.17.21"
     },
     "files": [
         "dist",
         "package.json",
         "yarn.lock"
     ],
-    "packageManager": "pnpm@9.9.0"
+    "packageManager": "pnpm@9.9.0",
+    "engines": {
+        "node": ">=18"
+    }
 }

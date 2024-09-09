@@ -1,6 +1,6 @@
 import { IDrac6Options, iDrac6, IDrac6DataTypes } from "./index.js";
-import { readFile } from "fs/promises";
-import { URL } from "url";
+import { readFile } from "node:fs/promises";
+import { URL } from "node:url";
 
 const config = JSON.parse(
     (

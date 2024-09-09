@@ -4,19 +4,19 @@
 
 import { IDrac6Options } from "./interfaces/iDrac6Options.js";
 import { get } from "lodash-es";
-import { URL, URLSearchParams } from "url";
+import { URL, URLSearchParams } from "node:url";
 import {
     iDrac6ConfigError,
     iDrac6MissingConfigError,
 } from "./errors/ConfigErrors.js";
 import { IDrac6Session } from "./interfaces/iDrac6Session.js";
-import { join, dirname } from "path";
+import { join, dirname } from "node:path";
 import fsExtra from "fs-extra";
-import { unlink } from "fs/promises";
+import { unlink } from "node:fs/promises";
 import ky from "ky-universal";
 import { iDrac6LoginError } from "./errors/iDrac6Error.js";
-import { Agent } from "https";
-import { homedir } from "os";
+import { Agent } from "node:https";
+import { homedir } from "node:os";
 import { IDrac6DataTypes, PowerActions, PowerState } from "./enums/iDrac6.js";
 import debug from "debug";
 import {
